@@ -24,7 +24,11 @@
 #include "opentx.h"
 #include "touch.h"
 
+#if defined(SIMU)
+#define HAS_TOUCH_PANEL()     true
+#else
 #define HAS_TOUCH_PANEL()     touchGT911Flag == true
+#endif
 
 bool touchPanelInit();
 void touchPanelDeInit();

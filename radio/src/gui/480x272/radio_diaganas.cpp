@@ -19,7 +19,7 @@
  */
 
 #include "opentx.h"
-#if defined(RADIO_TX16S)
+#if defined(HARDWARE_TOUCH)
 #include "tp_gt911.h"
 #include <math.h>
 #endif
