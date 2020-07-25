@@ -374,7 +374,9 @@
 #endif
 
 // PCBREV
-#if defined(PCBX10)
+#if defined(RADIO_FAMILY_T16)
+  #define PCBREV_RCC_AHB1Periph         0
+#elif defined(PCBX10)
   #define PCBREV_RCC_AHB1Periph         RCC_AHB1Periph_GPIOH
   #define PCBREV_GPIO_PIN               (GPIO_Pin_7 | GPIO_Pin_8)
   #define PCBREV_GPIO                   GPIOH
