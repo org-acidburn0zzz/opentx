@@ -378,7 +378,7 @@
   #define PCBREV_RCC_AHB1Periph         0
 #elif defined(PCBX10)
   #define PCBREV_RCC_AHB1Periph         RCC_AHB1Periph_GPIOH
-  #define PCBREV_GPIO_PIN               (GPIO_Pin_7 | GPIO_Pin_8)
+  #define PCBREV_GPIO_PIN               (GPIO_Pin_7 | GPIO_Pin_8)  // PH.07 PH.08
   #define PCBREV_GPIO                   GPIOH
   #define PCBREV_VALUE()                (GPIO_ReadInputDataBit(PCBREV_GPIO, GPIO_Pin_7) + (GPIO_ReadInputDataBit(PCBREV_GPIO, GPIO_Pin_8) << 1))
 #else
