@@ -337,12 +337,10 @@ bool touchPanelInit(void)
     gt911ReadRegister(GT_CFGS_REG, tmp, 1);
 
     TRACE("Chip config Ver:%x\r\n",tmp[0]);
-    if (tmp[0] < GT911_CFG_NUMER)  //Config ver
-    {
-      TRACE("Sending new config %d", GT911_CFG_NUMER);
-      GT911_Send_Cfg(1);
-    }
-
+#if defined(HARDWARE_TOUCH_CONFIG_UPDATE)
+    TRACE("Sending new config %d", GT911_CFG_NUMER);
+    GT911_Send_Cfg(1);
+#endif
     delay_ms(10);
     tmp[0] = 0X00;
     gt911WriteRegister(GT_CTRL_REG, tmp, 1);  //end reset
@@ -405,7 +403,6 @@ void touchPanelRead()
 extern "C" void TOUCH_INT_EXTI_IRQHandler1(void)
 {
   if (EXTI_GetITStatus(TOUCH_INT_EXTI_LINE1) != RESET) {
-    TRACE("TI");
     touchPanelEvent = 1;
     EXTI_ClearITPendingBit(TOUCH_INT_EXTI_LINE1);
   }

@@ -41,8 +41,9 @@ void gt911ReadRegister(uint16_t reg, uint8_t * buf, uint8_t len);
 void touchPanelRead();
 
 #define GT911_MAX_TP      5
-#define GT911_CFG_NUMER   0x6A
 
+#if defined(RADIO_TX16S) && defined(HARDWARE_TOUCH_CONFIG_UPDATE)
+#define GT911_CFG_NUMER   0x00
 //GT911 param table
 const uint8_t GT911_Cfg[] =
 {
@@ -231,6 +232,7 @@ const uint8_t GT911_Cfg[] =
   0x00,                // 0x80FD Reserved
   0x00                 // 0x80FE Reserved
 };
+#endif
 
 //I2C
 #define GT_CMD_WR 		0X28
