@@ -38,7 +38,6 @@ void touchPanelRead();
 bool touchPanelEventOccured();
 
 #define GT911_MAX_TP            5
-#define GT911_CFG_NUMER         0x6A
 
 //I2C
 #define GT_CMD_WR 		0X28

@@ -22,7 +22,10 @@
 #include "tp_gt911.h"
 #include "touch.h"
 
+#if defined(RADIO_TX16S)
 //GT911 param table
+#define GT911_CFG_NUMER         0x6A
+
 const uint8_t TOUCH_GT911_Cfg[] =
   {
     GT911_CFG_NUMER,     // 0x8047 Config version
@@ -210,6 +213,7 @@ const uint8_t TOUCH_GT911_Cfg[] =
     0x00,                // 0x80FD Reserved
     0x00                 // 0x80FE Reserved
   };
+#endif
 
 uint8_t touchGT911Flag = 0;
 uint8_t touchEventOccured = 0;
@@ -416,6 +420,7 @@ bool I2C_GT911_ReadRegister(u16 reg, uint8_t * buf, uint8_t len)
   return true;
 }
 
+#if defined(GT911_CFG_NUMER)
 uint8_t I2C_GT911_SendConfig(uint8_t mode)
 {
   uint8_t buf[2];
@@ -430,6 +435,7 @@ uint8_t I2C_GT911_SendConfig(uint8_t mode)
   I2C_GT911_WriteRegister(GT_CHECK_REG, buf, 2);//write checksum
   return 0;
 }
+#endif
 
 void touchPanelDeInit(void)
 {
@@ -475,12 +481,13 @@ bool touchPanelInit(void)
       I2C_GT911_ReadRegister(GT_CFGS_REG, tmp, 1);
 
       TRACE("Chip config Ver:%x\r\n", tmp[0]);
+#if defined(GT911_CFG_NUMER)
       if (tmp[0] < GT911_CFG_NUMER)  //Config ver
       {
         TRACE("Sending new config %d", GT911_CFG_NUMER);
         I2C_GT911_SendConfig(1);
       }
-
+#endif
       delay_ms(10);
       tmp[0] = 0X00;
       I2C_GT911_WriteRegister(GT_CTRL_REG, tmp, 1);  //end reset
